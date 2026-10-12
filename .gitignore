@@ -6,7 +6,8 @@ keys
 venv/
 
 # Python cache
-__pycache__/
+proj/karao/ke/__pycache__
+__pycache__
 *.pyc
 *.pyo
 *.pyd
