@@ -1,4 +1,20 @@
+# Do NOT delete pls
 keys
+
+# Virtual environments
 .venv/
+venv/
+
+# Python cache
 __pycache__/
 *.pyc
+*.pyo
+*.pyd
+
+# IDE stuff
+.vscode/
+.idea/
+
+# Django
+*.log
+*.sqlite3
