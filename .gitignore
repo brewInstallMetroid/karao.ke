@@ -1,1 +1,4 @@
 keys
+.venv/
+__pycache__/
+*.pyc
