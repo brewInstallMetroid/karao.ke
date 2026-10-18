@@ -2,8 +2,26 @@
 <html lang="en">
 <head>
     <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    {% block content %}{% endblock %}
+	<div class="container">
+		<div class="banner">
+			<div class="logo">
+				<h>Karao.ke</h>
+			</div>
+			
+			<div class="burger">
+				<a><img src="Images/hamburger.png"></a>
+			</div>
+		</div>
+		
+		{% block content %}{% endblock %}
+	
+		<div class="footer">
+			<p>(c) Group 7, 2026</p>
+		</div>
+    </div>
+
 </body>
 </html>
