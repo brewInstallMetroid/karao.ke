@@ -1,0 +1,50 @@
+*{
+	margin: 0;
+	padding: 0;
+	font-family: sans-serif;
+}
+.container{
+	height: 100vh;
+	width: 100%;
+	position: relative;
+	background: #8442F5;
+}
+
+.banner{
+	height: 15%;
+	width: 100%;
+	display: flex;
+	align-items: center;
+}
+
+.logo h{
+	padding-left: 35px;
+	padding-right: 35px;
+	color: #FFFAFF;
+	font-size: 650%;
+}
+
+.burger{
+	position: absolute;
+	right: 30px;
+	align-items: right;
+}
+
+.burger img{
+	float: right;
+	width: 15%;
+}
+
+.footer{
+	height: 35px;
+	width: 100%;
+	background: #2F1847;
+	position: fixed;
+	bottom: 0px;
+}
+
+.footer p{
+	padding-top: 8px;
+	text-align: center;
+	color: #FFFAFF;
+}
