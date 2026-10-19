@@ -2,17 +2,17 @@
 <html lang="en">
 <head>
     <title>{% block title %}{% endblock %}</title>
-    <link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" href="{% static "css/style.css" %}">
 </head>
 <body>
 	<div class="container">
 		<div class="banner">
 			<div class="logo">
-				<h>Karao.ke</h>
+				<h1>Karao.ke</h1>
 			</div>
 			
 			<div class="burger">
-				<a><img src="Images/hamburger.png"></a>
+				<a><img src="{% static "images/hamburger.png" %}"></a>
 			</div>
 		</div>
 		
