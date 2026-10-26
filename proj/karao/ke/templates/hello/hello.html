@@ -1,7 +1,42 @@
 {% extends "base.html" %}
-{% block title %} Welcome to karao.ke {% endblock %}
-{% block content %} 
-	<h1>The TV Karaoke Website</h1> 
-	<h3>We hope you enjoy your jam sessions!</h3>
-{% endblock %}
+{% block title %}Recently Played | Karao.ke{% endblock %}
+{% block content %}
+<main class="page-content">
+    <section class="welcome-card">
+        <h2>Your Karaoke Queue</h2>
+        <p>Use voice commands to choose a song. Songs played through the voice-selection feature will appear here automatically.</p>
+    </section>
 
+    {% if messages %}
+        <div class="messages" role="status" aria-live="polite">
+            {% for message in messages %}<p class="message {{ message.tags }}">{{ message }}</p>{% endfor %}
+        </div>
+    {% endif %}
+
+    <section class="panel recent-panel" aria-labelledby="recent-heading">
+        <div class="section-heading">
+            <h2 id="recent-heading">Recently Played</h2>
+            {% if recent_songs %}
+            <form action="{% url 'clear_recent' %}" method="post" class="clear-form">
+                {% csrf_token %}<button type="submit" class="secondary-button">Clear history</button>
+            </form>
+            {% endif %}
+        </div>
+        {% if recent_songs %}
+            <ul class="recent-list">
+                {% for song in recent_songs %}
+                <li class="recent-song">
+                    <span class="song-icon" aria-hidden="true">♫</span>
+                    <div class="song-details">
+                        <span class="song-title">{{ song.title }}</span>
+                        <a href="{{ song.youtube_url }}" target="_blank" rel="noopener noreferrer">Open on YouTube ↗</a>
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p class="empty-state">No songs played yet. When you request and play a song by voice, it will show up here.</p>
+        {% endif %}
+    </section>
+</main>
+{% endblock %}
