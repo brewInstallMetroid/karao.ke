@@ -1,14 +1,57 @@
 * { box-sizing: border-box; }
+
 :root { color-scheme: light; }
-body { margin: 0; font-family: Arial, Helvetica, sans-serif; color: #241632; background: #f5f0ff; }
-.container { min-height: 100vh; padding-bottom: 54px; background: linear-gradient(180deg, #8442f5 0, #8442f5 260px, #f5f0ff 260px, #f5f0ff 100%); }
+
+html, body {
+    margin: 0;
+    min-height: 100%;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    color: #241632;
+    background: #f5f0ff;
+}
+
+.container {
+    min-height: 100vh;
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+
+    background: linear-gradient(
+        180deg,
+        #8442f5 0,
+        #8442f5 260px,
+        #f5f0ff 260px,
+        #f5f0ff 100%
+    );
+}
+
+.page-content {
+    width: min(900px, calc(100% - 32px));
+    margin: 20px auto 36px;
+    flex: 1;
+}
+
+.footer {
+    min-height: 35px;
+    padding: 10px 12px;
+    background: #2f1847;
+    color: #fffaff;
+    text-align: center;
+}
+
+.footer p {
+    margin: 0;
+    font-size: .85rem;
+}
 .banner { min-height: 120px; width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 18px clamp(20px, 5vw, 64px); }
 .logo { color: #fffaff; text-decoration: none; }
 .logo h1 { margin: 0; font-size: clamp(2.5rem, 6vw, 4.2rem); letter-spacing: -2px; }
 .top-nav { display: flex; gap: 20px; flex-wrap: wrap; }
 .top-nav a { color: #fff; font-weight: 700; text-decoration: none; }
 .top-nav a:hover, .top-nav a:focus { text-decoration: underline; }
-.page-content { width: min(900px, calc(100% - 32px)); margin: 20px auto 36px; }
 .welcome-card { color: white; padding: 10px 4px 24px; }
 .welcome-card h2 { font-size: clamp(1.6rem, 4vw, 2.2rem); margin: 0 0 10px; }
 .welcome-card p { line-height: 1.6; max-width: 650px; }
@@ -29,8 +72,6 @@ body { margin: 0; font-family: Arial, Helvetica, sans-serif; color: #241632; bac
 .message { border-radius: 8px; padding: 12px 15px; background: #fff; }
 .message.error { border-left: 4px solid #c62828; color: #8c1d1d; }
 .message.success { border-left: 4px solid #2e7d32; color: #205b24; }
-.footer { min-height: 35px; padding: 10px 12px; background: #2f1847; color: #fffaff; text-align: center; }
-.footer p { margin: 0; font-size: .85rem; }
 @media (max-width: 600px) {
   .banner { align-items: flex-start; flex-direction: column; gap: 12px; }
   .top-nav { gap: 16px; }

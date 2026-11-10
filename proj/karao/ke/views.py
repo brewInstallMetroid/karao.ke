@@ -1,45 +1,32 @@
 import json
-import re
-from urllib.parse import parse_qs, urlparse
 
 from django.contrib import messages
 from django.http import JsonResponse
 from django.shortcuts import redirect, render
 from django.views.decorators.http import require_POST
 
+from karao.ke.bl.HelperBL import HelperBL
+
 MAX_RECENT_SONGS = 8
 SESSION_KEY = "recently_played_songs"
 
-
 def hello(request):
     """Render the homepage with only the recently played section."""
-    return render(
-        request,
-        "hello/hello.html",
-        {"recent_songs": request.session.get(SESSION_KEY, [])},
-    )
+    hlpr = HelperBL(request)
 
-
-def get_youtube_video_id(url):
-    """Return a YouTube video ID from common YouTube URL formats."""
-    try:
-        parsed = urlparse((url or "").strip())
-    except (AttributeError, ValueError):
-        return None
-
-    host = (parsed.hostname or "").lower()
-    if host in {"youtu.be", "www.youtu.be"}:
-        video_id = parsed.path.strip("/").split("/")[0]
-    elif host in {"youtube.com", "www.youtube.com", "m.youtube.com", "music.youtube.com"}:
-        if parsed.path == "/watch":
-            video_id = parse_qs(parsed.query).get("v", [""])[0]
-        else:
-            match = re.match(r"^/(?:embed|shorts)/([^/?]+)", parsed.path)
-            video_id = match.group(1) if match else ""
+    if not hlpr.userIsMobile:
+        return render(
+            request,
+            "hello/hello.html",
+            {"recent_songs": request.session.get(SESSION_KEY, [])},
+        )
     else:
-        return None
-
-    return video_id if re.fullmatch(r"[A-Za-z0-9_-]{11}", video_id or "") else None
+        # TODO:: add genuine template for mobile devices
+        return render(
+            request,
+            "hello/hello.html",
+            {"recent_songs": request.session.get(SESSION_KEY, [])},
+        )
 
 
 @require_POST
@@ -58,7 +45,7 @@ def record_recent_song(request):
 
     title = str(payload.get("title", "")).strip()[:100]
     youtube_url = str(payload.get("youtube_url", "")).strip()[:500]
-    video_id = get_youtube_video_id(youtube_url)
+    video_id = HelperBL.get_youtube_video_id(youtube_url)
 
     if not title or not video_id:
         return JsonResponse(
