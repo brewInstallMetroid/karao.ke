@@ -1,27 +1,20 @@
 {% load static %}
+<!doctype html>
 <html lang="en">
 <head>
-    <title>{% block title %}{% endblock %}</title>
-	<link rel="stylesheet" href="{% static "css/style.css" %}">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Karao.ke{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 <body>
-	<div class="container">
-		<div class="banner">
-			<div class="logo">
-				<h1>Karao.ke</h1>
-			</div>
-			
-			<div class="burger">
-				<a><img src="{% static "images/hamburger.png" %}"></a>
-			</div>
-		</div>
-		
-		{% block content %}{% endblock %}
-	
-		<div class="footer">
-			<p>(c) Group 7, 2026</p>
-		</div>
+    <div class="container">
+        <header class="banner">
+            <a class="logo" href="{% url 'home' %}" aria-label="Karao.ke home"><h1>Karao.ke</h1></a>
+            <nav class="top-nav" aria-label="Main navigation"><a href="{% url 'home' %}">Home</a><a href="{% url 'home' %}#recent-heading">Recently Played</a></nav>
+        </header>
+        {% block content %}{% endblock %}
+        <footer class="footer"><p>© Group 7, 2026</p></footer>
     </div>
-
 </body>
 </html>
