@@ -10,11 +10,67 @@
 <body>
     <div class="container">
         <header class="banner">
-            <a class="logo" href="{% url 'home' %}" aria-label="Karao.ke home"><h1>Karao.ke</h1></a>
-            <nav class="top-nav" aria-label="Main navigation"><a href="{% url 'home' %}">Home</a><a href="{% url 'home' %}#recent-heading">Recently Played</a></nav>
+            <a class="logo" href="{% url 'home' %}" aria-label="Karao.ke home">
+                <h1>Karao.ke</h1>
+            </a>
+            <nav class="top-nav" aria-label="Main navigation">
+                <a id="home-link" href="{% url 'home' %}">Home</a>
+                <a id="recently-played-link" href="{% url 'home' %}#recent-heading">Recently Played</a>
+                <button id="speak-button" type="button">Speak</button>
+                <span id="voice-status" role="status"></span>
+            </nav>
         </header>
         {% block content %}{% endblock %}
         <footer class="footer"><p>© Group 7, 2026</p></footer>
     </div>
+
+    <script>
+        const speakButton = document.getElementById("speak-button");
+        const voiceStatus = document.getElementById("voice-status");
+        const recentlyPlayedLink = document.getElementById("recently-played-link");
+        const homeLink = document.getElementById("home-link");
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        
+
+        if (!SpeechRecognition) {
+            speakButton.disabled = true;
+            voiceStatus.textContent = "Voice navigation isn’t available in this browser.";
+        } else {
+            const recognition = new SpeechRecognition();
+            recognition.lang = "en-US";
+
+            speakButton.addEventListener("click", () => {
+                recognition.start();
+                speakButton.disabled = true;
+            });
+
+            recognition.onstart = () => {
+                voiceStatus.textContent = "Listening…";
+            };
+
+            recognition.onresult = (event) => {
+                const spokenWords = event.results[0][0].transcript;
+                const command = spokenWords.toLowerCase().trim().replace(/[.!?]+$/, "");
+
+                if (command === "recently played") {
+                    voiceStatus.textContent = "Opening Recently Played.";
+                    recentlyPlayedLink.click();
+                } else if (command === "home") {
+                    voiceStatus.textContent = "Opening Home.";
+                    homeLink.click();
+                } else {
+                    voiceStatus.textContent = `Heard “${spokenWords}.” Try saying “recently played” or “home.”`;
+                }
+            };
+
+            recognition.onerror = (event) => {
+                voiceStatus.textContent = `Couldn't recognize speech (${event.error}).`;
+            };
+
+            recognition.onend = () => {
+                speakButton.disabled = false;
+            };
+        }
+    </script>
 </body>
 </html>
