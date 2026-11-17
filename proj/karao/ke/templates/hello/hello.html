@@ -4,7 +4,7 @@
 <main class="page-content">
     <section class="welcome-card">
         <h2>Your Karaoke Queue</h2>
-        <p>Use voice commands to choose a song. Songs played through the voice-selection feature will appear here automatically.</p>
+        <p><a href="{% url 'song_queue' %}" style="color: #fff; text-decoration: underline;">Open the queue</a> to see what's up next.</p>    
     </section>
 
     {% if messages %}
@@ -26,10 +26,10 @@
             <ul class="recent-list">
                 {% for song in recent_songs %}
                 <li class="recent-song">
-                    <span class="song-icon" aria-hidden="true">♫</span>
+                    <span class="song-icon" aria-hidden="true">&#9835;</span>
                     <div class="song-details">
                         <span class="song-title">{{ song.title }}</span>
-                        <a href="{{ song.youtube_url }}" target="_blank" rel="noopener noreferrer">Open on YouTube ↗</a>
+                        <a href="{{ song.youtube_url }}" target="_blank" rel="noopener noreferrer">Open on YouTube &#8599;</a>
                     </div>
                 </li>
                 {% endfor %}

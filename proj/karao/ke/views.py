@@ -19,6 +19,10 @@ def hello(request):
         {"recent_songs": request.session.get(SESSION_KEY, [])},
     )
 
+def song_queue(request):
+    """Show the karaoke queue page."""
+    return render(request, "queue.html")
+
 
 def get_youtube_video_id(url):
     """Return a YouTube video ID from common YouTube URL formats."""

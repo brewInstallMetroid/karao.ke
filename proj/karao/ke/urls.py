@@ -6,6 +6,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.hello, name='home'),
     path('hello/', views.hello, name='hello'),
+    path('queue/', views.song_queue, name='song_queue'),
     path('recent/record/', views.record_recent_song, name='record_recent_song'),
     path('recent/clear/', views.clear_recent, name='clear_recent'),
 ]

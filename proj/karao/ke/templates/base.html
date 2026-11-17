@@ -10,27 +10,37 @@
 <body>
     <div class="container">
         <header class="banner">
-            <a class="logo" href="{% url 'home' %}" aria-label="Karao.ke home">
-                <h1>Karao.ke</h1>
-            </a>
+            <a class="logo" href="{% url 'home' %}" aria-label="Karao.ke home"><h1>Karao.ke</h1></a>
             <nav class="top-nav" aria-label="Main navigation">
                 <a id="home-link" href="{% url 'home' %}">Home</a>
+                <a id="queue-link" href="{% url 'song_queue' %}">Queue</a>
                 <a id="recently-played-link" href="{% url 'home' %}#recent-heading">Recently Played</a>
                 <button id="speak-button" type="button">Speak</button>
                 <span id="voice-status" role="status"></span>
             </nav>
         </header>
+
         {% block content %}{% endblock %}
+
         <footer class="footer"><p>© Group 7, 2026</p></footer>
     </div>
 
     <script>
         const speakButton = document.getElementById("speak-button");
         const voiceStatus = document.getElementById("voice-status");
-        const recentlyPlayedLink = document.getElementById("recently-played-link");
         const homeLink = document.getElementById("home-link");
+        const queueLink = document.getElementById("queue-link");
+        const queueCommands = [
+        "queue",
+        "q",
+        "show queue",
+        "show q",
+        "up next",
+        "what next",
+        "what's next",
+        ];
+        const recentlyPlayedLink = document.getElementById("recently-played-link");
         const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-        
 
         if (!SpeechRecognition) {
             speakButton.disabled = true;
@@ -56,10 +66,13 @@
                     voiceStatus.textContent = "Opening Recently Played.";
                     recentlyPlayedLink.click();
                 } else if (command === "home") {
-                    voiceStatus.textContent = "Opening Home.";
+                    voiceStatus.textContent = "Going home.";
                     homeLink.click();
+                } else if (queueCommands.includes(command)) {
+                    voiceStatus.textContent = "Opening the queue.";
+                    queueLink.click();
                 } else {
-                    voiceStatus.textContent = `Heard “${spokenWords}.” Try saying “recently played” or “home.”`;
+                    voiceStatus.textContent = `Heard “${spokenWords}”. Try saying “Home”, “Show Queue”, or “Recently Played”.`;
                 }
             };
 
